@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+     <record model="ir.ui.view" id="purchase_order_search_inherit">
+        <field name="name">purchase.order.list.select.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="after">
+                <filter icon="terp-gtk-jump-to-ltr" name="to_approve" string="To Approve" domain="[('state','in',('wait','confirmed'))]" help="Purchase orders which are not approved yet."/>
+            </xpath>
+        </field>
+    </record>
+
+        <!-- Inherit Form View to Modify it -->
+    <record id="purchase_order_custom_validation_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.custom.validation.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='purchase_approve']" position="after">
+                <button name="purchase_audit" states="pre_confirmed" class="oe_highlight" string="Auditar Orden" />
+                <button name="purchase_saudit" states="post_confirmed" class="oe_highlight" string="Auditar Orden" />
+                <button name="purchase_authorize" states="audited" class="oe_highlight" string="Autorizar Orden"/>
+                <button name="purchase_last_approve" states="authorized" string="Confirmar Orden" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                <!-- Add your fields or attributes here -->
+            </xpath>
+
+            <xpath expr="//button[@name='purchase_confirm']" position="replace">
+                <button name="purchase_confirm" states="draft" string="Request Order" id="draft_confirm"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" states="draft,confirmed,sent,bid,approved,except_picking,except_invoice,pre_confirmed,audited,authorized,post_confirmed" string="Cancel" type="object" />
+            </xpath>
+
+            <xpath expr="//field[@name='validator']" position="before">
+                <field name="requester" string="Solicitado por:"/>
+                <field name="auditor" string="Auditado por:"/>
+                <field name="authorizer" string="Autorizado por:"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</openerp>

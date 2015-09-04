@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+	<menuitem id="base.menu_internal_requisition_reporting" name="Internal Requisition" parent="base.menu_reporting" sequence="1" />
+	
+    <record id="view_internal_requisition_report_graph" model="ir.ui.view">
+         <field name="name">internal.requisition.report.graph</field>
+         <field name="model">internal.requisition.report</field>
+         <field name="arch" type="xml">
+             <graph string="Internal Requisition Analysis" type="pivot" stacked="True">
+                 <field name="department_id" type="row"/>
+                 <field name="date" interval="month" type="col"/>
+                 <field name="price_total" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <record id="view_internal_requisition_report_search" model="ir.ui.view">
+        <field name="name">internal.requisition.report.search</field>
+        <field name="model">internal.requisition.report</field>
+        <field name="arch" type="xml">
+            <search string="Internal Requisition Analysis">
+                <field name="date"/>
+                <field name="product_category_id"/>
+                <field name="product_id"/>
+                <field name="manager_id"/>
+                <filter name="Requesters" string="Requester" domain="[('user_id','=',uid)]"/>
+                <field name="department_id" />
+                <group expand="1" string="Group By">
+                    <filter string="Manager" name="Manager" context="{'group_by':'manager_id'}"/>
+                    <filter string="Department" context="{'group_by':'department_id'}" />
+                    <filter string="Product" name="Product" context="{'group_by':'product_id'}"/>
+                    <filter string="Category of Product" name="Category" context="{'group_by':'product_category_id'}"/>
+                    <separator/>
+                    <filter string="Period" context="{'group_by':'date:month'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_internal_requisition_report" model="ir.actions.act_window">
+        <field name="name">Internal Requisition Analysis</field>
+        <field name="res_model">internal.requisition.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_internal_requisition_report_search"/>
+        <field name="view_id" ref="view_internal_requisition_report_graph"/>
+        <field name="context">{'search_default_Requesters':1, 'group_by_no_leaf':1,'group_by':[]}</field>
+    </record>
+
+    <menuitem action="action_internal_requisition_report" id="menu_internal_requisition_report" parent="base.menu_internal_requisition_reporting" sequence="10"/>
+
+</data>
+</openerp>

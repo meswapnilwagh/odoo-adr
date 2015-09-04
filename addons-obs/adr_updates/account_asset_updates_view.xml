@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_asset_category_parent_id" model="ir.ui.view">
+            <field name="name">account.asset.category.parent.id</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+            <field name="arch" type="xml">
+
+
+                <!--xpath expr="//group[@string='Depreciation Dates']" position="attributes">
+                    <attribute name="invisible">[('type','=','view')]</attribute>
+                </xpath>
+
+                <xpath expr="//group[@string='Depreciation Method']" position="attributes">
+                    <attribute name="invisible">[('type','=','view')]</attribute>
+                </xpath>
+
+                <xpath expr="//group[@string='Analytic Information']" position="attributes">
+                    <attribute name="invisible">[('type','=','view')]</attribute>
+                </xpath-->
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="parent_id"/>
+                    <field name="type"/>
+                </xpath>
+                <xpath expr="//field[@name='account_asset_id']" position="replace">
+                    <field name="account_asset_id" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='account_depreciation_id']" position="replace">
+                    <field name="account_depreciation_id" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='account_expense_depreciation_id']" position="replace">
+                    <field name="account_expense_depreciation_id" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="replace">
+                    <field name="journal_id" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method']" position="replace">
+                    <field name="method" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method_number']" position="replace">
+                    <field name="method_number" attrs="{'invisible':['|',('method_time','=','end'),('type','=','view')], 'required':['|',('method_time','=','number'),('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method_period']" position="replace">
+                    <field name="method_period" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method_end']" position="replace">
+                    <field name="method_end" attrs="{'required': [('method_time','=','end')], 'invisible':[('method_time','=','number')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method_progress_factor']" position="replace">
+                    <field name="method_progress_factor" attrs="{'invisible':['|',('method','=','linear'),('type','=','view')], 'required':['|',('method','=','degressive'),('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='method_time']" position="replace">
+                    <field name="method_time" attrs="{'invisible':[('type','=','view')], 'required':[('type','=','normal')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='prorata']" position="replace">
+                    <field name="prorata" attrs="{'invisible':[('type','=','view')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='open_asset']" position="replace">
+                    <field name="open_asset" attrs="{'invisible':[('type','=','view')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='account_analytic_id']" position="replace">
+                    <field name="account_analytic_id" attrs="{'invisible':[('type','=','view')]}"/>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it-->
+        <record id="account_asset_asset_category_parent_id" model="ir.ui.view">
+            <field name="name">account.asset.asset.category.parent.id</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="before">
+                    <field name="asset_code"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="replace">
+                    <field name="category_id" on_change="onchange_asset_category(category_id)"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="category_parent_id" />
+                </xpath>
+                <xpath expr="//field[@name='method_period']" position="after">
+                    <group name="analytic_account" string="Informacion Analitica" col="2">
+                        <field name="account_analytic_id" />
+                    </group>
+                </xpath>
+                <xpath expr="//page[@string='Notes']" position="before">
+				    <page string="Movimientos del Activo">
+					    <field name="asset_move_ids"/>
+				    </page>
+			    </xpath>
+                <!--xpath expr="//page[@string='Notes']" position="before">
+                    <page string="Movements">
+                        <field name="asset_move_ids"/>
+                    </page>
+			    </xpath-->
+
+            </field>
+        </record>
+
+        <!-- Planified action for asset create entry -->
+        <record model="ir.cron" id="account_asset_create_entry">
+            <field name="name">Run asset entry job</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="numbercall">-1</field>
+            <field name="model">account.asset.asset</field>
+            <field name="function">run_asset_entry</field>
+            <field name="args">()</field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_template_fixed_asset_inherit" model="ir.ui.view">
+            <field name="name">product.fixed.asset.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="fixed_asset" />
+                    <field name="asset_category_id" attrs="{'invisible':[('fixed_asset','=',False)], 'required':[('fixed_asset','=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Form view for account asset move -->
+        <record model="ir.ui.view" id="account_asset_move_view_form">
+            <field name="name">account.asset.move.view.form</field>
+            <field name="model">account.asset.move</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Movimientos de Activos Fijos" version="7.0">
+                    <header>
+                        <button name="button_confirm" string="Confirmar" type="workflow" states="draft"/>
+                        <button name="button_draft" string="Cambiar a borrador" type="workflow" states="confirmed,audited,received,cancel"/>
+                        <button name="button_audit" string="Auditar" type="workflow" states="confirmed"/>
+                        <button name="button_receive" string="Recibir" type="workflow" states="audited"/>
+                        <button name="button_validate" string="Validar" type="workflow" states="received"/>
+                        <button name="button_cancel" string="Cancelar" type="workflow" states="draft,confirmed,audited,received"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft, confirmed, audited,received"/>
+                    </header>
+                    <sheet string="Movimientos de Activos Fijos">
+                        <group col="4" colspan="1">
+                            <field name="asset_id" on_change="onchange_asset(asset_id)"/>
+                            <field name="asset_code"/>
+                            <field name="date"/>
+                            <field name="movement_category"/>
+                            <field name="origin_company" />
+                            <field name="destiny_company" attrs="{'required':[('movement_category','=','company_change')], 'invisible':[('movement_category','not in',
+                                   ('company_change'))]}"/>
+                            <field name="origin_account_analytic_id"/>
+                            <field name="destiny_account_analytic_id" attrs="{'required':[('movement_category','in',('company_change','department_change'))],
+                                           'invisible':[('movement_category','not in',('company_change','department_change'))] }"/>
+                            <field name="partner_id"
+                                   attrs="{'required':[('movement_category','in',('donation_employee','donation_patient'))],
+                                   'invisible':[('movement_category','not in',
+                                   ('donation_employee','donation_patient'))]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Informacion Adicional">
+                            <group col="2">
+                                <field name="requester"/>
+                                <field name="confirmer"/>
+                                <field name="auditor"/>
+                                <field name="receiver"/>
+                                <field name="validator"/>
+                                <field name="canceler"/>
+                            </group>
+                        </page>
+                        </notebook>
+
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree view for account asset move -->
+        <record model="ir.ui.view" id="account_asset_move_view_tree">
+            <field name="name">account.asset.move.view.tree</field>
+            <field name="model">account.asset.move</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Assets moves" version="7.0">
+                    <field name="asset_id"/>
+                    <field name="movement_category"/>
+                    <field name="date"/>
+                    <field name="origin_company"/>
+                    <field name="destiny_company"/>
+                    <field name="origin_account_analytic_id"/>
+                    <field name="destiny_account_analytic_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for the form, tree view of account.move.asset-->
+        <record model="ir.actions.act_window" id="open_asset_movement_view">
+            <field name="name">Asset Moves</field>
+            <field name="res_model">account.asset.move</field>
+            <field name="view_type">form</field>
+        </record>
+
+        <!-- Menu for the assets movements -->
+        <menuitem name="Movimientos de Activos" parent="account_asset.menu_finance_assets" action="open_asset_movement_view" id="menu_asset_movement" sequence="11"/>
+
+        <!-- Workflow for movement of assets -->
+        <record model="workflow" id="asset_movement_workflow">
+            <field name="name">Asset Movement Workflow</field>
+            <field name="osv">account.asset.move</field>
+            <field name="on_create">True</field>
+        </record>
+
+        <!-- Workflow activities -->
+        <record model="workflow.activity" id="asset_move_draft">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">draft</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state': 'draft'})</field>
+            <field name="split_mode">OR</field>
+            <field name="join_mode">XOR</field>
+
+        </record>
+
+        <record model="workflow.activity" id="asset_move_cancel">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">cancel</field>
+            <field name="action">action_cancel()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record model="workflow.activity" id="asset_move_confirmed">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">confirmed</field>
+            <field name="action">action_confirm()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record model="workflow.activity" id="asset_move_audited">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">audited</field>
+            <field name="action">action_audit()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record model="workflow.activity" id="asset_move_received">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">received</field>
+            <field name="action">action_receive()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <record model="workflow.activity" id="asset_move_validated">
+            <field name="wkf_id" ref="asset_movement_workflow"/>
+            <field name="name">validated</field>
+            <field name="flow_stop">True</field>
+            <field name="action">action_validate()</field>
+            <field name="kind">function</field>
+        </record>
+
+        <!-- Transitions -->
+        <record model="workflow.transition" id="transition_draft_to_cancel">
+            <field name="act_from" ref="asset_move_draft"/>
+            <field name="act_to" ref="asset_move_cancel"/>
+            <field name="signal">button_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_draft_to_confirmed">
+            <field name="act_from" ref="asset_move_draft"/>
+            <field name="act_to" ref="asset_move_confirmed"/>
+            <field name="signal">button_confirm</field>
+        </record>
+        <record model="workflow.transition" id="transition_confirmed_to_cancel">
+            <field name="act_from" ref="asset_move_confirmed"/>
+            <field name="act_to" ref="asset_move_cancel"/>
+            <field name="signal">button_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_confirmed_to_audited">
+            <field name="act_from" ref="asset_move_confirmed"/>
+            <field name="act_to" ref="asset_move_audited"/>
+            <field name="signal">button_audit</field>
+        </record>
+        <record model="workflow.transition" id="transition_audited_to_cancel">
+            <field name="act_from" ref="asset_move_audited"/>
+            <field name="act_to" ref="asset_move_cancel"/>
+            <field name="signal">button_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_audited_to_received">
+            <field name="act_from" ref="asset_move_audited"/>
+            <field name="act_to" ref="asset_move_received"/>
+            <field name="signal">button_receive</field>
+        </record>
+        <record model="workflow.transition" id="transition_received_to_cancel">
+            <field name="act_from" ref="asset_move_received"/>
+            <field name="act_to" ref="asset_move_cancel"/>
+            <field name="signal">button_cancel</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_received_to_validated">
+            <field name="act_from" ref="asset_move_received"/>
+            <field name="act_to" ref="asset_move_validated"/>
+            <field name="signal">button_validate</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_cancel_to_draft">
+            <field name="act_from" ref="asset_move_cancel"/>
+            <field name="act_to" ref="asset_move_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_confirmed_to_draft">
+            <field name="act_from" ref="asset_move_confirmed"/>
+            <field name="act_to" ref="asset_move_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_audited_to_draft">
+            <field name="act_from" ref="asset_move_audited"/>
+            <field name="act_to" ref="asset_move_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+
+        <record model="workflow.transition" id="transition_received_to_draft">
+            <field name="act_from" ref="asset_move_received"/>
+            <field name="act_to" ref="asset_move_draft"/>
+            <field name="signal">button_draft</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+#wrapwrap {
+  margin-top: 40px;
+}
+#wrapwrap #wrap {
+  width: 85%;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+@media screen and (max-width: 1024px) {
+  #wrapwrap #wrap {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 768px) {
+  #wrapwrap #wrap {
+    width: 100%;
+  }
+}
+.navbar-default {
+  width: 85%;
+  margin: 0 auto;
+}
+footer .container {
+  width: 85%;
+}
+footer .container .row {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 50px 0 30px;
+  border-bottom: none;
+}
+footer .container.mt16.mb8 {
+  padding: 24px 0;
+}

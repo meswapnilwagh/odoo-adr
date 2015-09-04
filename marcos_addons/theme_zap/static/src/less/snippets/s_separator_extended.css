@@ -1,0 +1,47 @@
+.s_separator {
+  border-color: inherit;
+  border-top: 0;
+  padding: 8px 0;
+  margin: 0 0 16px 0;
+  height: 1px;
+  display: inline-block;
+  width: 100%;
+  border-style: solid;
+  border-bottom-width: 1px;
+}
+.s_separator.hr-small {
+  width: 20%;
+}
+.s_separator.hr-half {
+  width: 50%;
+}
+.s_separator.hr-full {
+  width: 100%;
+}
+.s_separator.hr-dashed {
+  border-style: dashed;
+}
+.s_separator.hr-dotted {
+  border-style: dotted;
+}
+.s_separator.hr-double {
+  border-style: double;
+}
+.s_separator.hr-solid {
+  border-style: solid;
+}
+.s_separator.hr-1px {
+  border-bottom-width: 1px;
+}
+.s_separator.hr-2px {
+  border-bottom-width: 2px;
+}
+.s_separator.hr-3px {
+  border-bottom-width: 3px;
+}
+.s_separator.hr-4px {
+  border-bottom-width: 4px;
+}
+.s_separator.hr-5px {
+  border-bottom-width: 5px;
+}

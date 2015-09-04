@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_internal_requisition_qweb">
+	<t t-foreach="docs" t-as="o">
+    <t t-call="report.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+            <h2>
+                <span>Internal Requisitions : </span>
+                <span t-field="o.name"/>
+                <span t-if="not o.name">/ </span>
+            </h2>
+
+            <table class="table table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th>Req. Reference</th>
+                        <th>Req. Date</th>
+                        <th>Req. Deadline</th>
+                        <th>User</th>
+                        <th>Department</th>
+                        <th>Manager</th>
+                        <th>State</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr>
+                        <td>
+                           	<p t-field="o.name"/>
+                        </td>
+                        <td>
+                            <p t-field="o.date_start"/>
+                        </td>
+                        <td>
+                            <p t-field="o.date_end"/>
+                        </td>
+                        <td>
+                            <p t-field="o.user_id.name"/>
+                        </td>
+                        <td>
+                            <p t-field="o.department_id.name"/>
+                        </td>
+                        <td>
+                            <p t-field="o.manager_id.name"/>
+                        </td>
+                        <td>
+                            <p t-field="o.state"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>
+                <span><strong>Company: </strong></span>
+                <span t-field="o.company_id.name"/>
+            </h3>
+            <h3>
+                <span><strong>Product Detail </strong></span>
+            </h3>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th class="text-right">Qty</th>
+                        <th>Product UoM</th>
+                        <th>State</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr t-foreach="o.line_ids" t-as="l">
+                        <td>
+                        	<span t-field="l.product_id.code"/>
+                           	<span t-field="l.product_id.name"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.product_qty"/>
+                        </td>
+                        <td>
+                            <span t-field="l.product_uom_id.category_id.name"/>
+                        </td>
+                        <td>
+                            <span t-field="l.state"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+    </t>
+</template>
+
+</data>
+</openerp>

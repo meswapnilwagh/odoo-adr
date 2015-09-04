@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="marcos_external_layout_header" inherit_id="report.external_layout_header">
+            <xpath expr="//div" position="replace">
+                <div class="header">
+
+                    <table>
+                        <tr>
+                            <th class="companyname">
+                                <h3><span t-field="company.name"/></h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="companyinfo">
+                                <p>
+                                <span t-field="company.street"/>
+                                <span t-field="company.street2"/>
+                                Tel.: <span t-field="company.phone"/>
+                                Fax.: <span t-field="company.fax"/>
+                                RNC.: <span t-field="company.vat"/>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                <style>
+                    .companyname {
+                        padding: 0px !important;
+                        text-align: center;
+                        border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-bottom-width:1px;
+
+
+
+                    }
+                    .companyinfo {
+                      text-align: center;
+                    }
+                </style>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="external_layout_footer" inherit_id="report.external_layout_footer">
+            <xpath expr="//div" position="replace">
+                <div class="footer" style="font-size: 10px; text-align:center">
+
+                    <ul class="list-inline">
+                        <li>Page:</li>
+                        <li>
+                            <span class="page"/>
+                        </li>
+                        <li>/</li>
+                        <li>
+                            <span class="topage"/>
+                        </li>
+                    </ul>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

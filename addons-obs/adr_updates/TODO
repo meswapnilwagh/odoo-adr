@@ -1,0 +1,49 @@
+Al momento de registrar la factura si esta tiene categoria de activo y el producto
+no entonces debe modificar el producto marcando activo fijo como verdadero y su categoria. -- hecho
+
+Verificar: no devuelve numero de depreciaciones y periodo entre depreciacion al
+momento de seleccionar la categoria
+
+
+Cambiar termino Empresa por Suplidor
+Permitir cambiar a borrador hasta Auditoria -- hecho
+Imprimir Label Codigo Activo
+
+Modificar metodo write al momento de ejecutar la accion action_receive()
+
+Si es donacion habilitar campo partner_id -- hecho
+
+(
+Accion donacion:
+Valor en libro:"Valor residual':
+Credito a Cuenta de Activo por el costo de adquisicion del activo
+Debito por el valor de la depreciacion acumulada hasta el momento
+Debito al gasto por el residual) -- hecho
+
+Accion venta:
+
+Analisis de activos:
+    Agregar campo (row) Cuenta Analitica -- hecho
+    Agregar campo (row) Suplidor -- hecho
+    Agregar campo (column) Valor residual -- hecho
+    Filtro: campo Codigo -- hecho
+
+Revisar metodo account_invoice_create (creo un solo activo y la factura tenia 3) -- Hecho
+
+La compra de activos fijos para produccion afecta cuenta de Costos (Grupo 5)
+
+Modificar reporte Factura de Proveedor (Mostrar asiento contable)
+
+Nominas:
+-- Confirmacion (Genera asiento contable en borrador)
+-- Auditar (Estado auditado)
+-- Validado (Posteado)
+-- Aplicacion de Pago (Financiero)
+
+Ordenes de Pago:
+Auditoria
+Finanzas
+
+Cheques o transferencia (Validacion transferencia cierra el ciclo y con cheques hay que
+generar los cheques para imprimir)
+

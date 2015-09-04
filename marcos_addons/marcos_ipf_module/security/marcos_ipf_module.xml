@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="mipf_module_category" model="ir.module.category">
+            <field name="name">Impresoras fiscales</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="ipf_module_user" model="res.groups">
+            <field name="name">Usuario</field>
+            <field name="category_id" ref="mipf_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="ipf_module_account" model="res.groups">
+            <field name="name">Contable</field>
+            <field name="category_id" ref="mipf_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('ipf_module_user'))]"/>
+        </record>
+
+        <record id="ipf_module_manager" model="res.groups">
+            <field name="name">Administrador</field>
+            <field name="category_id" ref="mipf_module_category"/>
+            <field name="implied_ids" eval="[(4, ref('ipf_module_user')), (4, ref('ipf_module_account'))]"/>
+        </record>
+
+    </data>
+</openerp>

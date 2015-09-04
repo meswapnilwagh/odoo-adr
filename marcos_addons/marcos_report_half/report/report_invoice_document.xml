@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+            <xpath expr="//div[@class='col-xs-5 col-xs-offset-7']" position="replace">
+
+                <style type="text/css">
+                    .tg {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    margin: 0px auto;
+                    }
+
+                    .tg td {
+                    padding: 5px 2px;
+                    overflow: hidden;
+                    word-break: normal;
+                    }
+
+                    .tg th {
+                    padding: 5px 2px;
+                    overflow: hidden;
+                    word-break: normal;
+                    }
+
+                    .tg .tg-9pvj {
+                    font-weight: bold;
+                    text-align: right
+                    }
+
+                    .tg .tg-0e45 {
+                    }
+
+                    .tg .tg-nl5m {
+                    font-weight: bold;
+                    }
+                </style>
+                <table class="tg" style="undefined;table-layout: fixed; width: 877px">
+                    <colgroup>
+                        <col style="width: 344px"/>
+                        <col style="width: 82px"/>
+                        <col style="width: 161px"/>
+                        <col style="width: 161px"/>
+                        <col style="width: 129px"/>
+                    </colgroup>
+                    <tr>
+                        <th class="tg-nl5m">Cliente:</th>
+                        <th class="tg-9pvj">Fecha:</th>
+                        <th class="tg-0e45">01/01/2015</th>
+                        <th class="tg-9pvj">FACTURA CREDITO FISCAL</th>
+                        <th class="tg-0e45">A010010010400066381</th>
+                    </tr>
+                    <tr>
+                        <td class="tg-0e45" rowspan="3">BRUGAL &amp; COMPA¥IA, C.POR A. Y FRANKLINBRUGAL<br/>Cod.:
+                            Carrtera Luperon K 3 1/2,Puerto Plata<br/>Tel.:(809)261-1888 Rnc/Ced.:105000067
+                        </td>
+                        <td class="tg-9pvj">Vendedor:</td>
+                        <td class="tg-0e45">KARLOS ALFREDO</td>
+                        <td class="tg-9pvj">No. de Orden.:</td>
+                        <td class="tg-0e45">72360</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-9pvj">Merchandise:</td>
+                        <td class="tg-0e45">JUAN CARLOS JIMENEZ</td>
+                        <td class="tg-9pvj">Condiciones:</td>
+                        <td class="tg-0e45">CREDITO Neto 30Dias</td>
+                    </tr>
+                    <tr>
+                        <td class="tg-9pvj"></td>
+                        <td class="tg-0e45"></td>
+                        <td class="tg-9pvj">Afecta</td>
+                        <td class="tg-0e45">A010010010100066381</td>
+                    </tr>
+                </table>
+
+            </xpath>
+
+            <xpath expr="//h2" position="replace"/>
+            <xpath expr="//div[@class='row mt32 mb32']" position="replace"/>
+            <xpath expr="//div[@t-if='o.tax_line']" position="replace"/>
+
+
+            <!--?detail-->
+
+            <xpath expr="//table[@class='table table-condensed']" position="replace">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th class="text-right">Precio</th>
+                            <t t-if="o.disc_total > 0">
+                                <th class="text-right" groups="sale.group_discount_per_so_line">Desc</th>
+                            </t>
+                            <!--?<th class="text-right">Itbis</th>-->
+                            <th class="text-right">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <tr t-foreach="o.invoice_line" t-as="l">
+                            <td>
+                                <span t-field="l.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.quantity"/>
+                                <span t-field="l.uos_id" groups="product.group_uom"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="l.price_unit"/>
+                            </td>
+                            <t t-if="o.disc_total > 0">
+                                <td class="text-right" groups="sale.group_discount_per_so_line">
+                                    <span t-field="l.discount"/>
+                                </td>
+                            </t>
+                            <!--?<td class="text-right">-->
+                                <!--?<span t-esc="', '.join(map(lambda x: x.description, l.invoice_line_tax_id))"/>-->
+                            <!--?</td>-->
+                            <td class="text-right">
+                                <span t-field="l.price_subtotal"
+                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>
+
+            <xpath expr="//div[@class='col-xs-4 pull-right']" position="replace">
+
+                <div class="col-xs-8 pull-left">
+                    <p style="text-align: center">PARA REALIZAR PAGOS EN EFECTIVO FAVOR COMUNICARSE AL DPTO. DE COBROS [SI ESTA(S) FACTURA(S) HAN SIDO PAGADA(S), FAVOR OBVIAR ESTE PARRAFO] <strong>TEL. 809-534-4543</strong></p>
+                </div>
+
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black" t-if="o.disc_total != 0.0"
+                            groups="sale.group_discount_per_so_line">
+                            <td>Sin descuento</td>
+                            <td class="text-right">
+                                <span t-field="o.total_b4_disc"/>
+                            </td>
+                        </tr>
+                        <tr t-if="o.disc_total != 0.0" groups="sale.group_discount_per_so_line">
+                            <td>Descuento</td>
+                            <td class="text-right">
+                                <span t-field="o.disc_total"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td>
+                                <strong>Subtotal</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.amount_untaxed"
+                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ITBIS</td>
+                            <td class="text-right">
+                                <span t-field="o.amount_tax"
+                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td>
+                                <strong>Total</strong>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.amount_total"
+                                      t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
+                            </td>
+                        </tr>
+                    </table>
+                    <style>
+                        <!--?table {-->
+                        <!--?font-size: 12px;-->
+                        <!--?}-->
+                    </style>
+                </div>
+            </xpath>
+
+        </template>
+
+        <record id="account.account_invoices" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="marcos_report_half.marcos_paperformat_half"/>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- Internal Purchase Order -->
+        
+		<record id="view_internal_po" model="ir.ui.view">
+            <field name="name">Internal Purchase Order</field>
+            <field name="model">internal.purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Internal Purchase Order">
+                	<label string="This operation will create RFQ for the product's that are out of stock" colspan="4"/>
+				  	<newline/>
+				  	<newline/>
+				  	<group>
+				  		<field name="location_id" domain="[('usage','!=','view')]"/>
+                  	</group>
+                	<field name="supplier_ids" domain="[('supplier','=',True)]" nolabel="0" colspan="4"/>
+				    <footer>
+                		<button icon="gtk-stop" special="cancel" string="No" />
+                		<button name="request_rfq" string="Create RFQ" colspan="1" type="object" class="oe_highlight" />
+				    </footer>
+                </form>
+            </field>
+        </record>         
+
+        <record id="action_internal_po" model="ir.actions.act_window">
+            <field name="name">Internal Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">internal.purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record> 
+	</data>
+</openerp>	

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_logistic_requisition_source_form">
+      <field name="name">view_logistic_requisition_source_form</field>
+      <field name="model">logistic.requisition.source</field>
+      <field name="inherit_id" ref="logistic_requisition.view_logistic_requisition_source_form"/>
+      <field name="arch" type="xml">
+        <field name="unit_cost"
+               position="before">
+          <field name="portfolio_id"
+                 attrs="{'required': [('sourcing_method', '=', 'fw_agreement')],
+                        'invisible': [('sourcing_method', '!=', 'fw_agreement')]}" />
+          <field name="framework_agreement_id"
+                 domain="[('draft', '=', False),
+                          ('product_id', '=', proposed_product_id),
+                          ('portfolio_id', '=', portfolio_id)]"
+                 attrs="{'required': [('sourcing_method', '=', 'fw_agreement')],
+                         'invisible': [('sourcing_method', '!=', 'fw_agreement')]}" />
+          <field name="framework_agreement_po_id"
+                 readonly="1"
+                 attrs="{'invisible': [('sourcing_method', 'not in', ['fw_agreement','other'])]}"
+                 />
+
+          <field name="supplier_id"
+                 invisible="1"/>
+        </field>
+        <field name="proposed_uom_id"
+               position="attributes">
+          <attribute name="attrs">{'invisible': [('sourcing_method', '=', 'fw_agreement')]}</attribute>
+        </field>
+        <field name="price_is"
+               position="attributes">
+          <attribute name="attrs">{'invisible': [('sourcing_method', '=', 'fw_agreement')]}</attribute>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_logistic_requisition_line_form">
+        <field name="name">logistic.requisition.line.form</field>
+        <field name="model">logistic.requisition.line</field>
+        <field name="inherit_id" ref="logistic_requisition.view_logistic_requisition_line_form"/>
+        <field name="arch" type="xml">
+            <button name="button_create_po_requisition" states="assigned"
+                        string="Create Call for Bids"
+                        type="object" position="after">
+            </button>
+        </field>
+      </record>
+
+  </data>
+</openerp>

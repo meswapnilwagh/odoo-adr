@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template name="ZAP - Demo" id="website.demo_page_home" page="True">
+  <t t-call="website.layout">
+    <div id="wrap" class="oe_structure">
+      
+      <div data-oe-call="theme_common.s_banner_2"/>
+      <div data-oe-call="theme_common.s_carousel_boxed"/>
+      <div data-oe-call="theme_common.s_three_columns_carousel"/>
+      <div data-oe-call="theme_common.s_features_circle"/>
+      <div data-oe-call="theme_common.s_news_carousel"/>
+      <div><br/><br/></div>
+      <div data-oe-call="theme_common.s_team_profiles_2"/>
+      <div><br/><br/></div>
+      <div data-oe-call="theme_common.s_text_block_image_fw"/>
+      <div><br/></div>
+      <div data-oe-call="theme_common.s_references_2"/>
+      <div><br/></div>
+      <div data-oe-call="theme_common.s_quotes_slider_2"/>
+      <div data-oe-call="theme_common.s_process_steps_2"/>
+      <div data-oe-call="theme_common.s_numbers"/>
+    </div>
+  </t>
+</template>
+
+<record id="demo_page_home_menu" model="website.menu">
+    <field name="name">Demo</field>
+    <field name="url">/page/demo_page_home</field>
+    <field name="parent_id" ref="website.main_menu"/>
+    <field name="sequence" type="int">30</field>
+</record>
+
+</data>
+</openerp>

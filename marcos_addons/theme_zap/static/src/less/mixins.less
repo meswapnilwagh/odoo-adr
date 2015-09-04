@@ -1,0 +1,521 @@
+/* GLOBAL COLORS MIXINS 
+   ========================================================================== */
+
+.white(@content-color){
+	.bg-white{
+		.bg-white(#fff, @content-color);
+	}
+	.panel-white{
+		.panel-color(#fff, @content-color);
+	}
+}
+.gray-lighter(@content-color){
+	.bg-gray-lighter{
+		.bg-gray-lighter(@gray-lighter, @content-color);
+	}
+	.panel-gray-lighter{
+		.panel-color(@gray-lighter, @content-color);
+	}
+}
+.gray(@content-color){
+	.bg-gray{
+		.bg-gray(@gray, @content-color);
+	}
+	.panel-gray{
+		.panel-color(@gray, @content-color);
+	}
+}
+.gray-darker(@content-color){
+	.bg-gray-darker{
+		.bg-gray-darker(@gray-darker, @content-color);
+	}
+	.panel-gray-darker{
+		.panel-color(@gray-darker, @content-color);
+	}
+}
+.alpha(@content-color){
+	.bg-alpha{
+		.bg-alpha(@color-alpha, @content-color);
+	}
+	.panel-alpha{
+		.panel-color(@color-alpha, @content-color);
+	}
+}
+.beta(@content-color){
+	.bg-beta{
+		.bg-beta(@color-beta, @content-color);
+	}
+	.panel-beta{
+		.panel-color(@color-beta, @content-color);
+	}
+}
+.gamma(@content-color){
+	.bg-gamma{
+		.bg-gamma(@color-gamma, @content-color);
+	}
+	.panel-gamma{
+		.panel-color(@color-gamma, @content-color);
+	}
+}
+.delta(@content-color){
+	.bg-delta{
+		.bg-delta(@color-delta, @content-color);
+	}
+	.panel-delta{
+		.panel-color(@color-delta, @content-color);
+	}
+}
+.epsilon(@content-color){
+	.bg-epsilon{
+		.bg-epsilon(@color-epsilon, @content-color);
+	}
+	.panel-epsilon{
+		.panel-color(@color-epsilon, @content-color);
+	}
+}
+
+
+/* BACKGROUND COLORS
+   ========================================================================== */
+
+.bg-none(@bg-color; @color){
+	background-color: transparent;
+}
+
+.bg-white(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	&.fa{
+		color: @color;
+	}
+	.text-white{
+		color: @color;
+	}
+	.well-white{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* GRAY-LIGHTER */
+
+.bg-gray-lighter(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.blockquote-text small{
+		color: @color;
+	}
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-gray-lighter{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-gray-lighter{
+		.panel-color(@color, #fff);
+	}
+	.well-gray-lighter{
+		.well-color(@color);
+	}
+  .img-thumbnail(@color, @bg-color);
+}
+
+/* GRAY */
+
+.bg-gray(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.blockquote-text small{
+		color: @color;
+	}
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-gray{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-gray{
+		.panel-color(@color, @bg-color);
+	}
+	.well-gray{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* GRAY-DARKER */
+
+.bg-gray-darker(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.blockquote-text small{
+		color: @color;
+	}
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-gray-darker{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-gray-darker{
+		.panel-color(@color, @bg-color);
+	}
+	.well-gray-darker{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* ALPHA */
+
+.bg-alpha(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.text-primary,
+	.blockquote-text small{
+		color: @color;
+	}
+	.label-alpha{
+		background-color: @color;
+		color: @bg-color;
+	}
+	.btn.btn-primary,
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-alpha{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-alpha{
+		.panel-color(@color, @bg-color);
+	}
+	.well-alpha{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* BETA */
+
+.bg-beta(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.text-success,
+	.blockquote-text small{
+		color: @color;
+	}
+	.label-beta{
+		background-color: @color;
+		color: @bg-color;
+	}
+	.btn.btn-success,
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-beta{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-beta{
+		.panel-color(@color, @bg-color);
+	}
+	.well-beta{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* GAMMA */
+
+.bg-gamma(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.text-info,
+	.blockquote-text small{
+		color: @color;
+	}
+	.label-gamma{
+		background-color: @color;
+		color: @bg-color;
+	}
+	.btn.btn-info,
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-gamma{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-gamma{
+		.panel-color(@color, @bg-color);
+	}
+	.well-gamma{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* DELTA */
+
+.bg-delta(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.text-warning,
+	.blockquote-text small{
+		color: @color;
+	}
+	.label-delta{
+		background-color: @color;
+		color: @bg-color;
+	}
+	.btn.btn-warning,
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @bg-color;
+		&:hover{
+			background-color: @color;
+			color: @color;
+		}
+	}
+	.bg-delta{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-delta{
+		.panel-color(@color, @bg-color);
+	}
+	.well-delta{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+/* EPSILON */
+
+.bg-epsilon(@bg-color; @color){
+	background-color: @bg-color;
+	color: @color;
+	.text-muted{
+		.text-muted(@color);
+	}
+	a:not(.btn),
+	&.fa,
+	.text-danger,
+	.blockquote-text small{
+		color: @color;
+	}
+	.label-epsilon{
+		background-color: @color;
+		color: @bg-color;
+	}
+	.btn.btn-danger,
+	.btn.btn-default{
+		border: 1px solid @color;
+		color: @color;
+		&:hover{
+			background-color: @color;
+			color: @bg-color;
+		}
+	}
+	.bg-epsilon{
+		&.fa{
+			background-color: @color;
+			color: @bg-color;
+		}
+		.img-thumbnail(@bg-color, @color);
+	}
+	.panel-epsilon{
+		.panel-color(@color, @bg-color);
+	}
+	.well-epsilon{
+		.well-color(@color);
+	}
+	.img-thumbnail(@color, @bg-color);
+}
+
+
+/* PANEL COLORS
+   ========================================================================== */
+
+.panel-color(@color, @textcolor){
+	border-color: @color;
+	.list-group li.active{
+		background-color: @color !important;
+		color: @textcolor;
+	}
+	> .panel-heading{
+		background-color: @color;
+		color: @textcolor;
+		> .panel-title, a{
+			color: @textcolor;
+		}
+	}
+	.tab-content{
+		border-left: 1px solid @color;
+		border-bottom: 1px solid @color;
+		border-right: 1px solid @color;
+		padding: 20px;
+	}
+	.nav-tabs{
+		border-bottom: 1px solid @color;	
+		> li {
+			> a{
+				background-color: inherit;
+				color: @color;
+				&:hover,
+				&:focus{
+					background-color: @color;
+					border: 1px solid @color;
+					border-bottom-color: @color;
+					color: @textcolor;
+					.fa{
+						color: @textcolor;
+					}
+				}
+			}
+			&.active a,
+			&.active a:hover,
+			&.active a:focus{
+				border: 1px solid @color;
+				background-color: @color;
+				color: @textcolor;
+				.fa{
+					color: @textcolor;
+				}
+			}
+		}
+	}
+}
+
+
+/* WELL COLORS
+   ========================================================================== */
+
+.well-color(@color){
+	background-color: transparent;
+	border-color: @color;
+	color: inherit;
+	.fa{
+		color: @color;
+	}
+}
+
+
+/* THUMBNAILS COLORS
+   ========================================================================== */
+
+.img-thumbnail(@first-border-color; @second-border-color){
+	&.thumbnail,
+	&.img-thumbnail{
+	  @shadow: 0 0 0 3px @first-border-color, 0 0 0 6px @second-border-color;
+    .box-shadow(@shadow);
+  }	
+}
+
+
+/* TEXT MUTED
+   ========================================================================== */
+
+.text-muted(@color){
+  color: @color;
+  opacity: (@opacity * 0.5);
+}
+
+
+/* THUMBNAILS COLORS
+   ========================================================================== */
+   
+.layout-font-styles(@layout-font-size; @layout-font-weight){
+  font-size: @layout-font-size;
+  font-weight: @layout-font-weight;
+}

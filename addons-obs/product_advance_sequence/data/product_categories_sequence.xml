@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Product category sequence -->
+        <record model="ir.sequence.type" id="product_category_code">
+            <field name="name">Product Category Sequence</field>
+            <field name="code">product.category.code</field>
+        </record>
+
+        <!-- Sequence code for each one of the categories -->
+        <record model="ir.sequence" id="product_category_3">
+            <field name="name">Code Equipos, Repuestos y Accesorios</field>
+            <field name="code">product.category.code</field>
+            <field name="prefix"> </field>
+            <field name="padding">5</field>
+            <field name="implementation">no_gap</field>
+        </record>
+</data>
+</openerp>

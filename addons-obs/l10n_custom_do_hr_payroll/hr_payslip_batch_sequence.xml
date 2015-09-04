@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="seq_type_salary_slip" model="ir.sequence.type">
+            <field name="name">Salary Slip Batch</field>
+            <field name="code">salary.slipbatch</field>
+        </record>
+        <record id="seq_salary_slip" model="ir.sequence">
+            <field name="name">Salary Slip Batch</field>
+            <field name="code">salary.slipbatch</field>
+            <field name="prefix"></field>
+            <field name="padding">7</field>
+        </record>
+      
+    </data>
+</openerp>

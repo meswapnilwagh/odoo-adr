@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record model="ir.ui.view" id="hr_employee_ars_form">
+			<field name="name">hr.employee.ars.form</field>
+			<field name="model">hr.employee.ars</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="ARS" version="7.0">
+					<group name="hr_ars" string="ARS">
+						<field name="sequence" />
+						<field name="name"/>
+					</group>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_employee_ars_tree">
+			<field name="name">hr.employee.ars.tree</field>
+			<field name="model">hr.employee.ars</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="ARS" version="7.0" nolabel="1" colspan="2">
+					<field name="sequence"/>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_recruitment_career_form">
+			<field name="name">hr.recruitment.career.form</field>
+			<field name="model">hr.recruitment.career</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+					<form string="Careers"  version="7.0">
+						<group name="hr_careers" string="Careers">
+							<field name="sequence"/>
+							<field name="name" />
+						</group>
+					</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_recruitment_career_tree">
+			<field name="name">hr.recruitment.career.tree</field>
+			<field name="model">hr.recruitment.career</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Careers" version="7.0" nolabel="1" colspan="2">
+					<field name="sequence"/>
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_employee_form_inherit">
+			<field name="name">hr.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="//field[@name='image_medium']" position="after">
+						<field name="employee_code"/>
+					</xpath>
+					<xpath expr="//field[@name='address_home_id']" position="before">
+						<field name="employee_code"/>
+					</xpath>
+					<xpath expr="//field[@name='address_home_id']" position="after">
+						<field name="partner_phone" />
+					</xpath>
+                    <xpath expr="//page[@string='Public Information']" position="after">
+                    </xpath>
+					<xpath expr="//page[@string='Public Information']" position="inside">
+							<group name="emergency_contacts" string="Contactos de Emergencia">
+								<field name="emergency_contact" mode="tree" nolabel="1" colspan= "2" >
+									<tree string="Contacto de Emergencia" version="7.0" editable="top">
+										<field name="name"/>
+										<field name="emergency_contact_phone"/>
+									</tree>
+								</field>
+							</group>
+						</xpath>
+						<xpath expr="//field[@name='passport_id']" position="after">
+							<field name="nss_id"/>
+							<field name="hr_employee_ars_id"/>
+					</xpath>
+						<xpath expr="//page[@string='Personal Information']" position="inside">
+							<group name="family_info" string="Informacion Familiar">
+								<field name="family_info_ids" mode="tree" nolabel="1" colspan="2">
+									<tree string="Family Info" version="7.0" editable="top">
+										<field name="name"/>
+										<field name="relationship"/>
+										<field name="gender"/>
+										<field name="date_of_birth"/>
+									</tree>
+								</field>
+							</group>
+						</xpath>
+						<xpath expr="//page[@string='HR Settings']" position="after">
+							<page string="Formacion Profesional">
+								<field name="formation_ids">
+									<tree version="7.0">
+										<field name="career_id"/>
+										<field name="degree_id"/>
+										<field name="date_start"/>
+										<field name="date_end"/>
+										<field name="specialization"/>
+									</tree>
+								</field>
+							</page>
+						</xpath>
+				</data>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_ars">
+			<field name="name">open.view.ars</field>
+			<field name="res_model">hr.employee.ars</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_careers">
+			<field name="name">open.view.careers</field>
+			<field name="res_model">hr.recruitment.career</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree.form</field>
+		</record>
+
+		<menuitem name="Careers" action="open_view_careers" parent="hr.menu_hr_configuration"  id="menu_employee_careers" />
+		<menuitem name="ARS" action="open_view_ars" parent="hr.menu_hr_configuration" id="menu_employee_ars"/>
+
+
+
+        <record model="ir.ui.view" id="hr_contract_news_inherit">
+			<field name="name">hr.contract.news.inherit</field>
+			<field name="model">hr.contract</field>
+			<field name="priority">20</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+			<field name="arch" type="xml">
+				<data>
+				  <xpath expr="//field[@name='type_id']" position="after">
+				    <field name="company_id"/>
+				  </xpath>
+				  <xpath expr="//field[@name='date_end']" position="after">
+				    <field name="contract_years"/>
+				    <field name="contract_days"/>
+				  </xpath>
+				  <xpath expr="//page[@name='information']" position="after">
+				    <page name="contract_news" string="Novedades del Contrato">
+						<separator/>
+						<group string="Prestamos Cooperativa" col="2">
+							<group string="Prestamo VAC">
+								<field name="pre_vac_coop_apply"/>
+								<field name="pre_vac_coop_discount_amount" attrs="{'invisible':[('pre_vac_coop_apply','=',False)], 'required':[('pre_vac_coop_apply','=',True)]}"/>
+								<field name="pre_vac_coop_frecuency_type" attrs="{'invisible':[('pre_vac_coop_apply','=',False)], 'required':[('pre_vac_coop_apply','=',True)]}"/>
+								<field name="pre_vac_coop_apply_on" attrs="{'invisible':[('pre_vac_coop_apply','=',False)], 'required':[('pre_vac_coop_apply','=',True)] }"/>
+								<field name="pre_vac_coop_frecuency_number" attrs="{'readonly':[('pre_vac_coop_frecuency_type','=', 'fixed')],'required':[('pre_vac_coop_frecuency_type','=', 'variable')] ,'invisible':[('pre_vac_coop_apply','=',False)], 'invisible':[('pre_vac_coop_frecuency_type','=','fixed')]}"/>
+								<field name="pre_vac_coop_start_date" attrs="{'readonly':[('pre_vac_coop_frecuency_type','=', 'fixed')],'required':[('pre_vac_coop_frecuency_type','=', 'variable')] ,'invisible':[('pre_vac_coop_apply','=',False)], 'invisible':[('pre_vac_coop_frecuency_type','=','fixed')]}"/>
+								<field name="pre_vac_coop_end_date" attrs="{'readonly':[('pre_vac_coop_frecuency_type','=', 'fixed')],'required':[('pre_vac_coop_frecuency_type','=', 'variable')] ,'invisible':[('pre_vac_coop_apply','=',False)], 'invisible':[('pre_vac_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="NAVICOOP">
+								<field name="nav_coop_apply"/>
+								<field name="nav_coop_discount_amount" attrs="{'invisible':[('nav_coop_apply','=',False)], 'required':[('nav_coop_apply','=',True)]}"/>
+								<field name="nav_coop_frecuency_type" attrs="{'invisible':[('nav_coop_apply','=',False)], 'required':[('nav_coop_apply','=',True)]}"/>
+								<field name="nav_coop_apply_on" attrs="{'invisible':[('nav_coop_apply','=',False)], 'required':[('nav_coop_apply','=',True)] }"/>
+								<field name="nav_coop_frecuency_number" attrs="{'readonly':[('nav_coop_frecuency_type','=', 'fixed')],'required':[('nav_coop_frecuency_type','=', 'variable')] ,'invisible':[('nav_coop_apply','=',False)], 'invisible':[('nav_coop_frecuency_type','=','fixed')]}"/>
+								<field name="nav_coop_start_date" attrs="{'readonly':[('nav_coop_frecuency_type','=', 'fixed')],'required':[('nav_coop_frecuency_type','=', 'variable')] ,'invisible':[('nav_coop_apply','=',False)], 'invisible':[('nav_coop_frecuency_type','=','fixed')]}"/>
+								<field name="nav_coop_end_date" attrs="{'readonly':[('nav_coop_frecuency_type','=', 'fixed')],'required':[('nav_coop_frecuency_type','=', 'variable')] ,'invisible':[('nav_coop_apply','=',False)], 'invisible':[('nav_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="La Telefonica Tours">
+								<field name="tel_tours_coop_apply"/>
+								<field name="tel_tours_coop_discount_amount" attrs="{'invisible':[('tel_tours_coop_apply','=',False)], 'required':[('tel_tours_coop_apply','=',True)]}"/>
+								<field name="tel_tours_coop_frecuency_type" attrs="{'invisible':[('tel_tours_coop_apply','=',False)], 'required':[('tel_tours_coop_apply','=',True)]}"/>
+								<field name="tel_tours_coop_apply_on" attrs="{'invisible':[('tel_tours_coop_apply','=',False)], 'required':[('tel_tours_coop_apply','=',True)] }"/>
+								<field name="tel_tours_coop_frecuency_number" attrs="{'readonly':[('tel_tours_coop_frecuency_type','=', 'fixed')],'required':[('tel_tours_coop_frecuency_type','=', 'variable')] ,'invisible':[('tel_tours_coop_apply','=',False)], 'invisible':[('tel_tours_coop_frecuency_type','=','fixed')]}"/>
+								<field name="tel_tours_coop_start_date" attrs="{'readonly':[('tel_tours_coop_frecuency_type','=', 'fixed')],'required':[('tel_tours_coop_frecuency_type','=', 'variable')] ,'invisible':[('tel_tours_coop_apply','=',False)], 'invisible':[('tel_tours_coop_frecuency_type','=','fixed')]}"/>
+								<field name="tel_tours_coop_end_date" attrs="{'readonly':[('tel_tours_coop_frecuency_type','=', 'fixed')],'required':[('tel_tours_coop_frecuency_type','=', 'variable')] ,'invisible':[('tel_tours_coop_apply','=',False)], 'invisible':[('tel_tours_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="Prestamo Pre-Salud">
+								<field name="prest_salud_apply"/>
+								<field name="prest_salud_discount_amount" attrs="{'invisible':[('prest_salud_apply','=',False)], 'required':[('prest_salud_apply','=',True)]}"/>
+								<field name="prest_salud_frecuency_type" attrs="{'invisible':[('prest_salud_apply','=',False)], 'required':[('prest_salud_apply','=',True)]}"/>
+								<field name="prest_salud_apply_on" attrs="{'invisible':[('prest_salud_apply','=',False)], 'required':[('prest_salud_apply','=',True)] }"/>
+								<field name="prest_salud_frecuency_number" attrs="{'readonly':[('prest_salud_frecuency_type','=', 'fixed')],'required':[('prest_salud_frecuency_type','=', 'variable')] ,'invisible':[('prest_salud_apply','=',False)], 'invisible':[('prest_salud_frecuency_type','=','fixed')]}"/>
+								<field name="prest_salud_start_date" attrs="{'readonly':[('prest_salud_frecuency_type','=', 'fixed')],'required':[('prest_salud_frecuency_type','=', 'variable')] ,'invisible':[('prest_salud_apply','=',False)], 'invisible':[('prest_salud_frecuency_type','=','fixed')]}"/>
+								<field name="prest_salud_end_date" attrs="{'readonly':[('prest_salud_frecuency_type','=', 'fixed')],'required':[('prest_salud_frecuency_type','=', 'variable')] ,'invisible':[('prest_salud_apply','=',False)], 'invisible':[('prest_salud_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="Ahorro Cooperativa">
+								<field name="ahorro_coop_apply"/>
+								<field name="ahorro_coop_discount_amount" attrs="{'invisible':[('ahorro_coop_apply','=',False)], 'required':[('ahorro_coop_apply','=',True)]}"/>
+								<field name="ahorro_coop_frecuency_type" attrs="{'invisible':[('ahorro_coop_apply','=',False)], 'required':[('ahorro_coop_apply','=',True)]}"/>
+								<field name="ahorro_coop_apply_on" attrs="{'invisible':[('ahorro_coop_apply','=',False)], 'required':[('ahorro_coop_apply','=',True)] }"/>
+								<field name="ahorro_coop_frecuency_number" attrs="{'readonly':[('ahorro_coop_frecuency_type','=', 'fixed')],'required':[('ahorro_coop_frecuency_type','=', 'variable')] ,'invisible':[('ahorro_coop_apply','=',False)], 'invisible':[('ahorro_coop_frecuency_type','=','fixed')]}"/>
+								<field name="ahorro_coop_start_date" attrs="{'readonly':[('ahorro_coop_frecuency_type','=', 'fixed')],'required':[('ahorro_coop_frecuency_type','=', 'variable')] ,'invisible':[('ahorro_coop_apply','=',False)], 'invisible':[('ahorro_coop_frecuency_type','=','fixed')]}"/>
+								<field name="ahorro_coop_end_date" attrs="{'readonly':[('ahorro_coop_frecuency_type','=', 'fixed')],'required':[('ahorro_coop_frecuency_type','=', 'variable')] ,'invisible':[('ahorro_coop_apply','=',False)], 'invisible':[('ahorro_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="Prestamo Normal">
+								<field name="prest_normal_coop_apply"/>
+								<field name="prest_normal_coop_discount_amount" attrs="{'invisible':[('prest_normal_coop_apply','=',False)], 'required':[('prest_normal_coop_apply','=',True)]}"/>
+								<field name="prest_normal_coop_frecuency_type" attrs="{'invisible':[('prest_normal_coop_apply','=',False)], 'required':[('prest_normal_coop_apply','=',True)]}"/>
+								<field name="prest_normal_coop_apply_on" attrs="{'invisible':[('prest_normal_coop_apply','=',False)], 'required':[('prest_normal_coop_apply','=',True)] }"/>
+								<field name="prest_normal_coop_frecuency_number" attrs="{'readonly':[('prest_normal_coop_frecuency_type','=', 'fixed')],'required':[('prest_normal_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_normal_coop_apply','=',False)], 'invisible':[('prest_normal_coop_frecuency_type','=','fixed')]}"/>
+								<field name="prest_normal_coop_start_date" attrs="{'readonly':[('prest_normal_coop_frecuency_type','=', 'fixed')],'required':[('prest_normal_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_normal_coop_apply','=',False)], 'invisible':[('prest_normal_coop_frecuency_type','=','fixed')]}"/>
+								<field name="prest_normal_coop_end_date" attrs="{'readonly':[('prest_normal_coop_frecuency_type','=', 'fixed')],'required':[('prest_normal_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_normal_coop_apply','=',False)], 'invisible':[('prest_normal_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+                            <group string="Prestamo Tienda">
+								<field name="prest_tienda_coop_apply"/>
+								<field name="prest_tienda_coop_discount_amount" attrs="{'invisible':[('prest_tienda_coop_apply','=',False)], 'required':[('prest_tienda_coop_apply','=',True)]}"/>
+								<field name="prest_tienda_coop_frecuency_type" attrs="{'invisible':[('prest_tienda_coop_apply','=',False)], 'required':[('prest_tienda_coop_apply','=',True)]}"/>
+								<field name="prest_tienda_coop_apply_on" attrs="{'invisible':[('prest_tienda_coop_apply','=',False)], 'required':[('prest_tienda_coop_apply','=',True)] }"/>
+								<field name="prest_tienda_coop_frecuency_number" attrs="{'readonly':[('prest_tienda_coop_frecuency_type','=', 'fixed')],'required':[('prest_tienda_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_tienda_coop_apply','=',False)], 'invisible':[('prest_tienda_coop_frecuency_type','=','fixed')]}"/>
+								<field name="prest_tienda_coop_start_date" attrs="{'readonly':[('prest_tienda_coop_frecuency_type','=', 'fixed')],'required':[('prest_tienda_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_tienda_coop_apply','=',False)], 'invisible':[('prest_tienda_coop_frecuency_type','=','fixed')]}"/>
+								<field name="prest_tienda_coop_end_date" attrs="{'readonly':[('prest_tienda_coop_frecuency_type','=', 'fixed')],'required':[('prest_tienda_coop_frecuency_type','=', 'variable')] ,'invisible':[('prest_tienda_coop_apply','=',False)], 'invisible':[('prest_tienda_coop_frecuency_type','=','fixed')]}"/>
+							</group>
+						</group>
+
+                        <group string="Otros Prestamos y Cuentas por Cobrar" col="2">
+
+                            <group string="Prestamo ADR">
+                                <field name="prest_adr_apply"/>
+								<field name="prest_adr_discount_amount" attrs="{'invisible':[('prest_adr_apply','=',False)], 'required':[('prest_adr_apply','=',True)]}"/>
+								<field name="prest_adr_frecuency_type" attrs="{'invisible':[('prest_adr_apply','=',False)], 'required':[('prest_adr_apply','=',True)]}"/>
+								<field name="prest_adr_apply_on" attrs="{'invisible':[('prest_adr_apply','=',False)], 'required':[('prest_adr_apply','=',True)] }"/>
+								<field name="prest_adr_frecuency_number" attrs="{'readonly':[('prest_adr_frecuency_type','=', 'fixed')],'required':[('prest_adr_frecuency_type','=', 'variable')] ,'invisible':[('prest_adr_apply','=',False)], 'invisible':[('prest_adr_frecuency_type','=','fixed')]}"/>
+								<field name="prest_adr_start_date" attrs="{'readonly':[('prest_adr_frecuency_type','=', 'fixed')],'required':[('prest_adr_frecuency_type','=', 'variable')] ,'invisible':[('prest_adr_apply','=',False)], 'invisible':[('prest_adr_frecuency_type','=','fixed')]}"/>
+								<field name="prest_adr_end_date" attrs="{'readonly':[('prest_adr_frecuency_type','=', 'fixed')],'required':[('prest_adr_frecuency_type','=', 'variable')] ,'invisible':[('prest_adr_apply','=',False)], 'invisible':[('prest_adr_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Cuentas por Cobrar ADR">
+                                <field name="cxc_apply"/>
+								<field name="cxc_discount_amount" attrs="{'invisible':[('cxc_apply','=',False)], 'required':[('cxc_apply','=',True)]}"/>
+								<field name="cxc_frecuency_type" attrs="{'invisible':[('cxc_apply','=',False)], 'required':[('cxc_apply','=',True)]}"/>
+								<field name="cxc_apply_on" attrs="{'invisible':[('cxc_apply','=',False)], 'required':[('cxc_apply','=',True)] }"/>
+								<field name="cxc_frecuency_number" attrs="{'readonly':[('cxc_frecuency_type','=', 'fixed')],'required':[('cxc_frecuency_type','=', 'variable')] ,'invisible':[('cxc_apply','=',False)], 'invisible':[('cxc_frecuency_type','=','fixed')]}"/>
+								<field name="cxc_start_date" attrs="{'readonly':[('cxc_frecuency_type','=', 'fixed')],'required':[('cxc_frecuency_type','=', 'variable')] ,'invisible':[('cxc_apply','=',False)], 'invisible':[('cxc_frecuency_type','=','fixed')]}"/>
+								<field name="cxc_end_date" attrs="{'readonly':[('cxc_frecuency_type','=', 'fixed')],'required':[('cxc_frecuency_type','=', 'variable')] ,'invisible':[('cxc_apply','=',False)], 'invisible':[('cxc_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Prestamo Vivienda">
+                                <field name="prest_vivienda_apply"/>
+								<field name="prest_vivienda_discount_amount" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)]}"/>
+								<field name="prest_vivienda_frecuency_type" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)]}"/>
+								<field name="prest_vivienda_apply_on" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)] }"/>
+								<field name="prest_vivienda_frecuency_number" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+								<field name="prest_vivienda_start_date" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+								<field name="prest_vivienda_end_date" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <!--group string="Prestamo Vivienda">
+                                <field name="prest_vivienda_apply"/>
+								<field name="prest_vivienda_discount_amount" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)]}"/>
+								<field name="prest_vivienda_frecuency_type" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)]}"/>
+								<field name="prest_vivienda_apply_on" attrs="{'invisible':[('prest_vivienda_apply','=',False)], 'required':[('prest_vivienda_apply','=',True)] }"/>
+								<field name="prest_vivienda_frecuency_number" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+								<field name="prest_vivienda_start_date" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+								<field name="prest_vivienda_end_date" attrs="{'readonly':[('prest_vivienda_frecuency_type','=', 'fixed')],'required':[('prest_vivienda_frecuency_type','=', 'variable')] ,'invisible':[('prest_vivienda_apply','=',False)], 'invisible':[('prest_vivienda_frecuency_type','=','fixed')]}"/>
+                            </group-->
+                            <group string="Financiamiento Formacion">
+                                <field name="fin_form_apply"/>
+								<field name="fin_form_discount_amount" attrs="{'invisible':[('fin_form_apply','=',False)], 'required':[('fin_form_apply','=',True)]}"/>
+								<field name="fin_form_frecuency_type" attrs="{'invisible':[('fin_form_apply','=',False)], 'required':[('fin_form_apply','=',True)]}"/>
+								<field name="fin_form_apply_on" attrs="{'invisible':[('fin_form_apply','=',False)], 'required':[('fin_form_apply','=',True)] }"/>
+								<field name="fin_form_frecuency_number" attrs="{'readonly':[('fin_form_frecuency_type','=', 'fixed')],'required':[('fin_form_frecuency_type','=', 'variable')] ,'invisible':[('fin_form_apply','=',False)], 'invisible':[('fin_form_frecuency_type','=','fixed')]}"/>
+								<field name="fin_form_start_date" attrs="{'readonly':[('fin_form_frecuency_type','=', 'fixed')],'required':[('fin_form_frecuency_type','=', 'variable')] ,'invisible':[('fin_form_apply','=',False)], 'invisible':[('fin_form_frecuency_type','=','fixed')]}"/>
+								<field name="fin_form_end_date" attrs="{'readonly':[('fin_form_frecuency_type','=', 'fixed')],'required':[('fin_form_frecuency_type','=', 'variable')] ,'invisible':[('fin_form_apply','=',False)], 'invisible':[('fin_form_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Rifa Carro">
+                                <field name="rifa_carro_apply"/>
+								<field name="rifa_carro_discount_amount" attrs="{'invisible':[('rifa_carro_apply','=',False)], 'required':[('rifa_carro_apply','=',True)]}"/>
+								<field name="rifa_carro_frecuency_type" attrs="{'invisible':[('rifa_carro_apply','=',False)], 'required':[('rifa_carro_apply','=',True)]}"/>
+								<field name="rifa_carro_apply_on" attrs="{'invisible':[('rifa_carro_apply','=',False)], 'required':[('rifa_carro_apply','=',True)] }"/>
+								<field name="rifa_carro_frecuency_number" attrs="{'readonly':[('rifa_carro_frecuency_type','=', 'fixed')],'required':[('rifa_carro_frecuency_type','=', 'variable')] ,'invisible':[('rifa_carro_apply','=',False)], 'invisible':[('rifa_carro_frecuency_type','=','fixed')]}"/>
+								<field name="rifa_carro_start_date" attrs="{'readonly':[('rifa_carro_frecuency_type','=', 'fixed')],'required':[('rifa_carro_frecuency_type','=', 'variable')] ,'invisible':[('rifa_carro_apply','=',False)], 'invisible':[('rifa_carro_frecuency_type','=','fixed')]}"/>
+								<field name="rifa_carro_end_date" attrs="{'readonly':[('rifa_carro_frecuency_type','=', 'fixed')],'required':[('rifa_carro_frecuency_type','=', 'variable')] ,'invisible':[('rifa_carro_apply','=',False)], 'invisible':[('rifa_carro_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Cena de Gala">
+                                <field name="cena_gala_apply"/>
+								<field name="cena_gala_discount_amount" attrs="{'invisible':[('cena_gala_apply','=',False)], 'required':[('cena_gala_apply','=',True)]}"/>
+								<field name="cena_gala_frecuency_type" attrs="{'invisible':[('cena_gala_apply','=',False)], 'required':[('cena_gala_apply','=',True)]}"/>
+								<field name="cena_gala_apply_on" attrs="{'invisible':[('cena_gala_apply','=',False)], 'required':[('cena_gala_apply','=',True)] }"/>
+								<field name="cena_gala_frecuency_number" attrs="{'readonly':[('cena_gala_frecuency_type','=', 'fixed')],'required':[('cena_gala_frecuency_type','=', 'variable')] ,'invisible':[('cena_gala_apply','=',False)], 'invisible':[('cena_gala_frecuency_type','=','fixed')]}"/>
+								<field name="cena_gala_start_date" attrs="{'readonly':[('cena_gala_frecuency_type','=', 'fixed')],'required':[('cena_gala_frecuency_type','=', 'variable')] ,'invisible':[('cena_gala_apply','=',False)], 'invisible':[('cena_gala_frecuency_type','=','fixed')]}"/>
+								<field name="cena_gala_end_date" attrs="{'readonly':[('cena_gala_frecuency_type','=', 'fixed')],'required':[('cena_gala_frecuency_type','=', 'variable')] ,'invisible':[('cena_gala_apply','=',False)], 'invisible':[('cena_gala_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Cafeteria">
+                                <field name="cafeteria_apply"/>
+								<field name="cafeteria_discount_amount" attrs="{'invisible':[('cafeteria_apply','=',False)], 'required':[('cafeteria_apply','=',True)]}"/>
+								<field name="cafeteria_frecuency_type" attrs="{'invisible':[('cafeteria_apply','=',False)], 'required':[('cafeteria_apply','=',True)]}"/>
+								<field name="cafeteria_apply_on" attrs="{'invisible':[('cafeteria_apply','=',False)], 'required':[('cafeteria_apply','=',True)] }"/>
+								<field name="cafeteria_frecuency_number" attrs="{'readonly':[('cafeteria_frecuency_type','=', 'fixed')],'required':[('cafeteria_frecuency_type','=', 'variable')] ,'invisible':[('cafeteria_apply','=',False)], 'invisible':[('cafeteria_frecuency_type','=','fixed')]}"/>
+								<field name="cafeteria_start_date" attrs="{'readonly':[('cafeteria_frecuency_type','=', 'fixed')],'required':[('cafeteria_frecuency_type','=', 'variable')] ,'invisible':[('cafeteria_apply','=',False)], 'invisible':[('cafeteria_frecuency_type','=','fixed')]}"/>
+								<field name="cafeteria_end_date" attrs="{'readonly':[('cafeteria_frecuency_type','=', 'fixed')],'required':[('cafeteria_frecuency_type','=', 'variable')] ,'invisible':[('cafeteria_apply','=',False)], 'invisible':[('cafeteria_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Membresia Club">
+                                <field name="memb_club_apply"/>
+								<field name="memb_club_discount_amount" attrs="{'invisible':[('memb_club_apply','=',False)], 'required':[('memb_club_apply','=',True)]}"/>
+								<field name="memb_club_frecuency_type" attrs="{'invisible':[('memb_club_apply','=',False)], 'required':[('memb_club_apply','=',True)]}"/>
+								<field name="memb_club_apply_on" attrs="{'invisible':[('memb_club_apply','=',False)], 'required':[('memb_club_apply','=',True)] }"/>
+								<field name="memb_club_frecuency_number" attrs="{'readonly':[('memb_club_frecuency_type','=', 'fixed')],'required':[('memb_club_frecuency_type','=', 'variable')] ,'invisible':[('memb_club_apply','=',False)], 'invisible':[('memb_club_frecuency_type','=','fixed')]}"/>
+								<field name="memb_club_start_date" attrs="{'readonly':[('memb_club_frecuency_type','=', 'fixed')],'required':[('memb_club_frecuency_type','=', 'variable')] ,'invisible':[('memb_club_apply','=',False)], 'invisible':[('memb_club_frecuency_type','=','fixed')]}"/>
+								<field name="memb_club_end_date" attrs="{'readonly':[('memb_club_frecuency_type','=', 'fixed')],'required':[('memb_club_frecuency_type','=', 'variable')] ,'invisible':[('memb_club_apply','=',False)], 'invisible':[('memb_club_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Utiles Escolares">
+                                <field name="util_esc_apply"/>
+								<field name="util_esc_discount_amount" attrs="{'invisible':[('util_esc_apply','=',False)], 'required':[('util_esc_apply','=',True)]}"/>
+								<field name="util_esc_frecuency_type" attrs="{'invisible':[('util_esc_apply','=',False)], 'required':[('util_esc_apply','=',True)]}"/>
+								<field name="util_esc_apply_on" attrs="{'invisible':[('util_esc_apply','=',False)], 'required':[('util_esc_apply','=',True)] }"/>
+								<field name="util_esc_frecuency_number" attrs="{'readonly':[('util_esc_frecuency_type','=', 'fixed')],'required':[('util_esc_frecuency_type','=', 'variable')] ,'invisible':[('util_esc_apply','=',False)], 'invisible':[('util_esc_frecuency_type','=','fixed')]}"/>
+								<field name="util_esc_start_date" attrs="{'readonly':[('util_esc_frecuency_type','=', 'fixed')],'required':[('util_esc_frecuency_type','=', 'variable')] ,'invisible':[('util_esc_apply','=',False)], 'invisible':[('util_esc_frecuency_type','=','fixed')]}"/>
+								<field name="util_esc_end_date" attrs="{'readonly':[('util_esc_frecuency_type','=', 'fixed')],'required':[('util_esc_frecuency_type','=', 'variable')] ,'invisible':[('util_esc_apply','=',False)], 'invisible':[('util_esc_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Resort">
+                                <field name="resort_apply"/>
+								<field name="resort_discount_amount" attrs="{'invisible':[('resort_apply','=',False)], 'required':[('resort_apply','=',True)]}"/>
+								<field name="resort_frecuency_type" attrs="{'invisible':[('resort_apply','=',False)], 'required':[('resort_apply','=',True)]}"/>
+								<field name="resort_apply_on" attrs="{'invisible':[('resort_apply','=',False)], 'required':[('resort_apply','=',True)] }"/>
+								<field name="resort_frecuency_number" attrs="{'readonly':[('resort_frecuency_type','=', 'fixed')],'required':[('resort_frecuency_type','=', 'variable')] ,'invisible':[('resort_apply','=',False)], 'invisible':[('resort_frecuency_type','=','fixed')]}"/>
+								<field name="resort_start_date" attrs="{'readonly':[('resort_frecuency_type','=', 'fixed')],'required':[('resort_frecuency_type','=', 'variable')] ,'invisible':[('resort_apply','=',False)], 'invisible':[('resort_frecuency_type','=','fixed')]}"/>
+								<field name="resort_end_date" attrs="{'readonly':[('resort_frecuency_type','=', 'fixed')],'required':[('resort_frecuency_type','=', 'variable')] ,'invisible':[('resort_apply','=',False)], 'invisible':[('resort_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            
+                        </group>
+                        
+                        <group string="Seguros Adicionales" col="2">
+                            <group string="Seguro Prepago ARS Humano">
+                                <field name="seg_pre_ars_hum_apply"/>
+								<field name="seg_pre_ars_hum_discount_amount" attrs="{'invisible':[('seg_pre_ars_hum_apply','=',False)], 'required':[('seg_pre_ars_hum_apply','=',True)]}"/>
+								<field name="seg_pre_ars_hum_frecuency_type" attrs="{'invisible':[('seg_pre_ars_hum_apply','=',False)], 'required':[('seg_pre_ars_hum_apply','=',True)]}"/>
+								<field name="seg_pre_ars_hum_apply_on" attrs="{'invisible':[('seg_pre_ars_hum_apply','=',False)], 'required':[('seg_pre_ars_hum_apply','=',True)] }"/>
+								<field name="seg_pre_ars_hum_frecuency_number" attrs="{'readonly':[('seg_pre_ars_hum_frecuency_type','=', 'fixed')],'required':[('seg_pre_ars_hum_frecuency_type','=', 'variable')] ,'invisible':[('seg_pre_ars_hum_apply','=',False)], 'invisible':[('seg_pre_ars_hum_frecuency_type','=','fixed')]}"/>
+								<field name="seg_pre_ars_hum_start_date" attrs="{'readonly':[('seg_pre_ars_hum_frecuency_type','=', 'fixed')],'required':[('seg_pre_ars_hum_frecuency_type','=', 'variable')] ,'invisible':[('seg_pre_ars_hum_apply','=',False)], 'invisible':[('seg_pre_ars_hum_frecuency_type','=','fixed')]}"/>
+								<field name="seg_pre_ars_hum_end_date" attrs="{'readonly':[('seg_pre_ars_hum_frecuency_type','=', 'fixed')],'required':[('seg_pre_ars_hum_frecuency_type','=', 'variable')] ,'invisible':[('seg_pre_ars_hum_apply','=',False)], 'invisible':[('seg_pre_ars_hum_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Seguro de Dependientes Adicionales">
+                                <field name="seg_dep_adic_apply"/>
+								<field name="seg_dep_adic_discount_amount" attrs="{'invisible':[('seg_dep_adic_apply','=',False)], 'required':[('seg_dep_adic_apply','=',True)]}"/>
+								<field name="seg_dep_adic_frecuency_type" attrs="{'invisible':[('seg_dep_adic_apply','=',False)], 'required':[('seg_dep_adic_apply','=',True)]}"/>
+								<field name="seg_dep_adic_apply_on" attrs="{'invisible':[('seg_dep_adic_apply','=',False)], 'required':[('seg_dep_adic_apply','=',True)] }"/>
+								<field name="seg_dep_adic_frecuency_number" attrs="{'readonly':[('seg_dep_adic_frecuency_type','=', 'fixed')],'required':[('seg_dep_adic_frecuency_type','=', 'variable')] ,'invisible':[('seg_dep_adic_apply','=',False)], 'invisible':[('seg_dep_adic_frecuency_type','=','fixed')]}"/>
+								<field name="seg_dep_adic_start_date" attrs="{'readonly':[('seg_dep_adic_frecuency_type','=', 'fixed')],'required':[('seg_dep_adic_frecuency_type','=', 'variable')] ,'invisible':[('seg_dep_adic_apply','=',False)], 'invisible':[('seg_dep_adic_frecuency_type','=','fixed')]}"/>
+								<field name="seg_dep_adic_end_date" attrs="{'readonly':[('seg_dep_adic_frecuency_type','=', 'fixed')],'required':[('seg_dep_adic_frecuency_type','=', 'variable')] ,'invisible':[('seg_dep_adic_apply','=',False)], 'invisible':[('seg_dep_adic_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Seguro de Vida BHD">
+                                <field name="seg_vida_bhd_apply"/>
+								<field name="seg_vida_bhd_discount_amount" attrs="{'invisible':[('seg_vida_bhd_apply','=',False)], 'required':[('seg_vida_bhd_apply','=',True)]}"/>
+								<field name="seg_vida_bhd_frecuency_type" attrs="{'invisible':[('seg_vida_bhd_apply','=',False)], 'required':[('seg_vida_bhd_apply','=',True)]}"/>
+								<field name="seg_vida_bhd_apply_on" attrs="{'invisible':[('seg_vida_bhd_apply','=',False)], 'required':[('seg_vida_bhd_apply','=',True)] }"/>
+								<field name="seg_vida_bhd_frecuency_number" attrs="{'readonly':[('seg_vida_bhd_frecuency_type','=', 'fixed')],'required':[('seg_vida_bhd_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_bhd_apply','=',False)], 'invisible':[('seg_vida_bhd_frecuency_type','=','fixed')]}"/>
+								<field name="seg_vida_bhd_start_date" attrs="{'readonly':[('seg_vida_bhd_frecuency_type','=', 'fixed')],'required':[('seg_vida_bhd_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_bhd_apply','=',False)], 'invisible':[('seg_vida_bhd_frecuency_type','=','fixed')]}"/>
+								<field name="seg_vida_bhd_end_date" attrs="{'readonly':[('seg_vida_bhd_frecuency_type','=', 'fixed')],'required':[('seg_vida_bhd_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_bhd_apply','=',False)], 'invisible':[('seg_vida_bhd_frecuency_type','=','fixed')]}"/>
+                            </group>
+                            <group string="Seguro de Vida Normal">
+                                <field name="seg_vida_normal_apply"/>
+								<field name="seg_vida_normal_discount_amount" attrs="{'invisible':[('seg_vida_normal_apply','=',False)], 'required':[('seg_vida_normal_apply','=',True)]}"/>
+								<field name="seg_vida_normal_frecuency_type" attrs="{'invisible':[('seg_vida_normal_apply','=',False)], 'required':[('seg_vida_normal_apply','=',True)]}"/>
+								<field name="seg_vida_normal_apply_on" attrs="{'invisible':[('seg_vida_normal_apply','=',False)], 'required':[('seg_vida_normal_apply','=',True)] }"/>
+								<field name="seg_vida_normal_frecuency_number" attrs="{'readonly':[('seg_vida_normal_frecuency_type','=', 'fixed')],'required':[('seg_vida_normal_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_normal_apply','=',False)], 'invisible':[('seg_vida_normal_frecuency_type','=','fixed')]}"/>
+								<field name="seg_vida_normal_start_date" attrs="{'readonly':[('seg_vida_normal_frecuency_type','=', 'fixed')],'required':[('seg_vida_normal_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_normal_apply','=',False)], 'invisible':[('seg_vida_normal_frecuency_type','=','fixed')]}"/>
+								<field name="seg_vida_normal_end_date" attrs="{'readonly':[('seg_vida_normal_frecuency_type','=', 'fixed')],'required':[('seg_vida_normal_frecuency_type','=', 'variable')] ,'invisible':[('seg_vida_normal_apply','=',False)], 'invisible':[('seg_vida_normal_frecuency_type','=','fixed')]}"/>
+                            </group>
+
+                        </group>
+				    </page>
+				  </xpath>
+                    <xpath expr="//field[@name='schedule_pay']" position="replace">
+						<field name="schedule_pay"/>
+					</xpath>
+
+				</data>
+			</field>
+		</record>
+
+
+    </data>
+</openerp>

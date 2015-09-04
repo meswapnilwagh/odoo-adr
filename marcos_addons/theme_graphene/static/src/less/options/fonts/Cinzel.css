@@ -1,0 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Cinzel:700,400);
+.serif {
+  font-family: 'Cinzel', serif;
+}
+.serifi,
+.serifem {
+  font-style: normal;
+}
+.serif i,
+.serif em {
+  font-style: normal;
+}

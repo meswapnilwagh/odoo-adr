@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="employee_payroll_form_updates">
+            <field name="name">Employee Payroll Updates DO</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='category_ids']" position="before">
+                    <label for="names"/>
+                    <field name="names" on_change="onchange_names(names, first_lastname, second_lastname)"/>
+                    <label for="first_lastname"/>
+                    <field name="first_lastname" on_change="onchange_names(names, first_lastname, second_lastname)"/>
+                    <label for="second_lastname"/>
+                    <field name="second_lastname" on_change="onchange_names(names, first_lastname, second_lastname)"/>
+                </xpath>
+                <xpath expr="//field[@name='work_location']" position="after">
+                    <field name="bank_id" widget="selection"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Search capabilities by bank id to the employee -->
+        <record model="ir.ui.view" id="employee_search_by_bank">
+            <field name="name">Employee search by bank</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="bank_id" string="Banco"/>
+                    <field name="job_id" string="Puesto de Trabajo"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

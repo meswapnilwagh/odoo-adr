@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="purchase_order_form">
+      <field name="name">purchase_order_form</field>
+      <field name="model">purchase.order</field>
+      <field name="inherit_id" ref="ngo_purchase.purchase_order_form"/>
+      <field name="arch" type="xml">
+
+        <div class="oe_title" position="before">
+          <div class="oe_right oe_button_box" style="width: 300px;" name="buttons">
+            <button class="oe_inline oe_stat_button" name="action_open_logistic_orders"
+              type="object" icon="fa-file-text-o">
+              <field string="Relevant LO" name="logistic_order_count" widget="statinfo" />
+            </button>
+          </div>
+        </div>
+
+        <field name="minimum_planned_date" position="after">
+          <field name="transport_mode_id"/>
+          <field name="transport_vehicle_id"/>
+        </field>
+
+      </field>
+    </record>
+  </data>
+</openerp>

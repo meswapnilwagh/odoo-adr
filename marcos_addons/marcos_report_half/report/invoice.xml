@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="marcos_report_half.layout_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-4 col-xs-offset-8">
+                        <img src='http://codeboxr.com/wp-content/uploads/2012/06/6_logo_predesign.jpg'/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="marcos_report_half.layout_footer">
+            <div class="footer">
+
+                <!-- FIRST ROW -->
+                <div class="row">
+                    <div class="col-xs-8">
+                        <strong>General Information:</strong>
+                        <br/>
+                        Line 1
+                        <br/>
+                        Line 2
+                        <br/>
+                        Line 3
+                        <br/>
+                        Line 4
+                    </div>
+                    <div class="col-xs-4" style="text-align:right">
+                        <strong>Bank Details:</strong>
+                        <br/>
+                        Line 1
+                        <br/>
+                        Line 2
+                        <br/>
+                        Line 3
+                        <br/>
+                        Line 4
+                    </div>
+                </div>
+
+                <!-- SECOND ROW -->
+                <div class="row mt16 mb16" style="text-align:center">
+                    <strong>THANK YOU FOR YOUR BUSINESS</strong>
+                </div>
+                <!-- THIRD ROW -->
+                <div class="row" style="background-color:#568eff;color:#ffffff;">
+                    <div class="col-xs-8">
+                        <strong>Company Tag Line</strong>
+                        <br/>
+                        Line 1
+                        <br/>
+                        Line 2
+                        <br/>
+                        Line 3
+                    </div>
+                    <div class="col-xs-4" style="text-align:right">
+                        Page
+                        <span class="page"/>
+                        of
+                        <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+
+        <template id="marcos_report_half.layout">
+            <t t-call="marcos_report_half.layout_header"/>
+            <t t-row="0"/>
+            <t t-call="marcos_report_half.layout_footer"/>
+        </template>
+
+        <template id="marcos_report_half.invoice_template">
+            <t t-call="marcos_report_half.layout">
+                <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <!-- FIRST ROW -->
+                    <div class="row">
+                        <div class="col-xs-12"
+                             style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;">
+                            <h3>INVOICE</h3>
+                        </div>
+                    </div>
+
+                    <!-- SECOND ROW -->
+                    <div class="row">
+                        <div class="col-xs-8" style="border-left:1px solid #568eff;">
+                            <strong>BILL TO:</strong>
+                            <br/>
+                            Line 1
+                            <br/>
+                            Line 2
+                            <br/>
+                            Line 3
+                        </div>
+                        <div class="col-xs-2" style="text-align:right;border-left:1px solid #568eff;">
+                            <strong>Invoice No.:</strong>
+                            <br/>
+                            <strong>Invoice Date:</strong>
+                            <br/>
+                            <strong>Due Date:</strong>
+                            <br/>
+                            <strong>PO No.:</strong>
+                        </div>
+                        <div class="col-xs-2" style="border-right:1px solid #568eff;">
+                            <span t-field="o.number"/>
+                            <br/>
+                            <!-- example of how to access field values -->
+                            Line 2
+                            <br/>
+                            Line 3
+                            <br/>
+                            Line 4
+                        </div>
+                    </div>
+
+                    <!-- THIRD ROW -->
+                    <div class="row">
+                        <div class="col-xs-12" style="border:1px solid #568eff;">
+                            <strong>PROJECT:</strong>
+                            <br/>
+                            Line 1
+                        </div>
+                    </div>
+
+                    <!-- FOURTH ROW -->
+                    <div class="row mt32" style="background-color:#568eff;border: 1px solid #568eff;color:#ffffff;">
+                        <div class="col-xs-1">NO.</div>
+                        <div class="col-xs-7">DESCRIPTION</div>
+                        <div class="col-xs-1">UOM</div>
+                        <div class="col-xs-1">QTY</div>
+                        <div class="col-xs-1">UNIT RATE</div>
+                        <div class="col-xs-1">AMOUNT</div>
+                    </div>
+
+                    <!-- FIFTH ROW -->
+                    <div class="row">
+                        <div class="col-xs-1" style="border-left:1px solid #568eff;">1.</div>
+                        <div class="col-xs-7" style="border-left:1px solid #568eff;">Line 1 Item Description</div>
+                        <div class="col-xs-1" style="border-left:1px solid #568eff;">100.00</div>
+                        <div class="col-xs-1" style="border-left:1px solid #568eff;">1</div>
+                        <div class="col-xs-1" style="border-left:1px solid #568eff;">100.00</div>
+                        <div class="col-xs-1" style="border-left:1px solid #568eff;border-right:1px solid #568eff;">
+                            100.00
+                        </div>
+                    </div>
+
+                    <!-- SIXTH ROW -->
+                    <div class="row">
+                        <div class="col-xs-10" style="text-align:right;border: 1px solid #568eff;">
+                            <strong>Total:</strong>
+                        </div>
+                        <div class="col-xs-2" style="text-align:right;border: 1px solid #568eff;border-left:0px;">
+                            <strong>100.00</strong>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            </t>
+        </template>
+
+        <report
+                id="marcos_report_half_invoice_report"
+                name="marcos_report_half.invoice_template"
+                model="account.invoice"
+                string="Factura media pagina"
+                report_type="qweb-pdf"
+                file="invoice_report"
+                />
+
+
+    </data>
+</openerp>

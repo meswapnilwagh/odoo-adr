@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record id="view_hr_payslip_run_number" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.name</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"></field>
+            <field name="arch" type="xml">
+                <form string="Payslips Batches" position="inside">
+                    <separator colspan="4" string="Header" position="inside"/>
+                </form>
+                <field name="credit_note" position="before">
+                    <field name="company_id" />
+                    <field name="date_efective" />
+                    <field name="currency_id" />
+                    <field name="bank_id" />
+                </field>
+                                <button string = "Generate Payslips" position = "after"> 
+                    <button name="close_payslip_run" type="object" states="draft" icon="STOCK_GOTO_BOTTOM" string="Confirmar Nominas" />
+                    </button>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_payslip_inherit_search">
+            <field name="name">hr.payslip.inherit.search</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="bank_id" string="Bank"/>
+                    <field name="company_id" string="Company"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_payslip_payment_period">
+			<field name="name">hr.payslip.payment.period</field>
+			<field name="model">hr.payslip</field>
+			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+				    <field name="payment_period" attrs="{'readonly':[('state','not in', 'draft')]}"/>
+                    <field name="payroll_type" attrs="{'readonly':[('state','not in', 'draft')]}"/>
+				    <field name="pay_vacation"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_payslip_run_payment_period">
+			<field name="name">hr.payslip.run.payment.period</field>
+			<field name="model">hr.payslip.run</field>
+			<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='credit_note']" position="after">
+                    <field name="payment_period" attrs="{'readonly':[('state','not in', 'draft')]}"/>
+                    <field name="payroll_type" attrs="{'readonly':[('state','not in', 'draft')]}"/>
+				</xpath>
+			</field>
+		</record>
+
+        <!-- Inherit Form View to Modify it >
+        <record id="hr_salary_rule_payment_period" model="ir.ui.view">
+            <field name="name">hr.salary.rule.payment.period</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref=""/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="">
+
+                </xpath>
+
+            </field>
+        </record-->
+
+    </data>
+</openerp>

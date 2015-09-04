@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Inherit to res_bank to add new field.-->
+        <record model="ir.ui.view" id="res_bank_inherit_form">
+            <field name="name">Bank inherit form</field>
+            <field name="model">res.bank</field>
+            <field name="inherit_id" ref="base.view_res_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bic']" position="after">
+                    <field name="bank_check_digit"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

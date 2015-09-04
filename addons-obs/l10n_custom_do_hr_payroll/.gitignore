@@ -1,0 +1,9 @@
+#Vim files
+*.swp
+*.*~
+
+#Python compiled
+*.pyc
+
+#Rope
+.ropeproject

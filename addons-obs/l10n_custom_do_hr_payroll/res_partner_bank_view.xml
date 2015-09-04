@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="partner_bank_inherit_form">
+            <field name="name">partner.bank.inherit.form</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_bic']" position="after">
+                    <field name="cod_operation"/>
+                    <field name="bank_check_digit"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
+

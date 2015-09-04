@@ -1,0 +1,36 @@
+# German translation for account-financial-tools
+# Copyright (c) 2014 Rosetta Contributors and Canonical Ltd 2014
+# This file is distributed under the same license as the account-financial-tools package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: account-financial-tools\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2013-10-18 17:46+0000\n"
+"PO-Revision-Date: 2015-01-05 20:07+0100\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: German <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2014-06-12 06:31+0000\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: de\n"
+
+#. module: account_cancel_invoice_check_payment_order
+#: code:addons/account_cancel_invoice_check_payment_order/account_invoice.py:48
+#, python-format
+msgid "Error !"
+msgstr "Fehler!"
+
+#. module: account_cancel_invoice_check_payment_order
+#: code:addons/account_cancel_invoice_check_payment_order/account_invoice.py:51
+#, python-format
+msgid "Invoice already imported in the payment order (%s) at %s on line %s"
+msgstr "Diese Rechnung wurde bereits zur Zahlanweisung (%s) zum %s an Position %s importiert"
+
+#. module: account_cancel_invoice_check_payment_order
+#: model:ir.model,name:account_cancel_invoice_check_payment_order.model_account_invoice
+msgid "Invoice"
+msgstr "Rechnung"

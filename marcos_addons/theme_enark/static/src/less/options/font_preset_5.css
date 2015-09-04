@@ -1,0 +1,26 @@
+html,
+body {
+  font-family: "Bitter-Regular";
+  font-size: 15px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Quattrocento-Bold";
+}
+.text-muted {
+  font-family: "Bitter-Regular";
+}
+.oe_product .oe_product_cart section h5 a {
+  font-size: 16px;
+}
+#products_grid_before .main-category {
+  font-size: 20px;
+}
+.nav.navbar-nav.navbar-right {
+  font-family: "Quattrocento-Bold";
+  text-transform: uppercase;
+}

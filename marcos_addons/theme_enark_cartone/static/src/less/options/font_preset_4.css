@@ -1,0 +1,25 @@
+html,
+body {
+  font-family: "DroidSerif";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "AlegreyaSansSC-Light";
+}
+#wrapwrap footer h4 {
+  font-size: 16px;
+}
+.oe_product .oe_product_cart section h5 a {
+  font-size: 16px;
+}
+#products_grid_before .main-category {
+  font-size: 20px;
+}
+.nav.navbar-nav.navbar-right {
+  font-family: "AlegreyaSansSC-Light";
+  font-size: 20px;
+}

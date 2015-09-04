@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+
+
+    <record id="property_rule_req_manager" model="ir.rule">
+        <field name="name">Manager Requistion</field>
+        <field name="model_id" ref="model_internal_requisition"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4,ref('base.group_hr_manager')), (4,ref('base.group_hr_user'))]"/>
+    </record>
+    <record id="property_rule_reqq_employee" model="ir.rule">
+        <field name="name">Employee Requistion</field>
+        <field name="model_id" ref="model_internal_requisition"/>
+        <field name="domain_force">['|',('user_id','=',user.id),('user_id','=',False)]</field>
+        <field name="groups" eval="[(4,ref('base.group_user'))]"/>
+    </record>
+
+
+
+</data>
+</openerp>

@@ -1,0 +1,5 @@
+import hr_employee
+import res_bank
+import hr_payslip_run
+import res_partner_bank
+import hr_contract

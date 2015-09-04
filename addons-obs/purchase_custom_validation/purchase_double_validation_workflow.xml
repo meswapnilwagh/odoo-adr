@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="act_pre_confirmed" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">pre_confirmed</field>
+            <field name="kind">function</field>
+            <field name="action">wkf_pre_confirm_order()</field>
+        </record>
+
+        <record id="act_wait_approval" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">WaitForApproval</field>
+            <field name="kind">function</field>
+            <field name="action">write({'state':'post_confirmed'})</field>
+        </record>
+
+        <record id="act_wait_for_audit" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">WaitForAudit</field>
+            <field name="kind">function</field>
+            <field name="action">action_audit()</field>
+        </record>
+
+        <record id="act_wait_for_auth" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">WaitForAuthorize</field>
+            <field name="kind">function</field>
+            <field name="action">action_authorize()</field>
+        </record>
+
+        <record id="act_wait_for_last" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">WaitForLastApprove</field>
+            <field name="split_mode">OR</field>
+            <field name="kind">dummy</field>
+        </record>
+
+        <record id="trans_draft_pre_confirmed" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_draft"/>
+            <field name="act_to" ref="act_pre_confirmed"/>
+            <field name="condition">amount_untaxed &lt; 5000</field>
+            <field name="signal">purchase_confirm</field>
+        </record>
+
+        <record id="trans_pre_confirmed_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_pre_confirmed"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>
+
+        <record id="trans_draft_confirmed" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_draft"/>
+            <field name="act_to" ref="purchase.act_confirmed"/>
+            <field name="condition">amount_untaxed &gt;= 5000</field>
+            <field name="signal">purchase_confirm</field>
+        </record>
+
+        <record id="trans_pre_confirmed_audit" model="workflow.transition">
+            <field name="act_from" ref="act_pre_confirmed"/>
+            <field name="act_to" ref="act_wait_for_audit"/>
+            <field name="signal">purchase_audit</field>
+        </record>
+
+        <record id="trans_audit_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_wait_for_audit"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>
+
+        <record id="trans_audited_authorized" model="workflow.transition">
+            <field name="act_from" ref="act_wait_for_audit"/>
+            <field name="act_to" ref="act_wait_for_auth"/>
+            <field name="signal">purchase_authorize</field>
+        </record>
+
+        <record id="trans_authorized_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_wait_for_auth"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>
+
+        <record id="trans_authorized_last_approve" model="workflow.transition">
+            <field name="act_from" ref="act_wait_for_auth"/>
+            <field name="act_to" ref="act_wait_for_last"/>
+            <field name="signal">purchase_last_approve</field>
+        </record>
+
+        <record id="trans_last_appr_router" model="workflow.transition">
+            <field name="act_from" ref="act_wait_for_last"/>
+            <field name="act_to" ref="purchase.act_router"/>
+        </record>
+
+        <record id="trans_confirmed_approve" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_confirmed"/>
+            <field name="act_to" ref="act_wait_approval"/>
+            <field name="condition">amount_untaxed &gt;= 5000</field>
+            <field name="signal">purchase_approve</field>
+        </record>
+
+        <record id="trans_confirmed_audit" model="workflow.transition">
+            <field name="act_from" ref="act_wait_approval"/>
+            <field name="act_to" ref="act_wait_for_audit"/>
+            <field name="signal">purchase_saudit</field>
+        </record>
+
+    </data>
+</openerp>

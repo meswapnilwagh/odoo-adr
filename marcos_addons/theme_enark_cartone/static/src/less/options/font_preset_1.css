@@ -1,0 +1,39 @@
+html,
+body {
+  font-family: "Ubuntu-Regular";
+  font-size: 16px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "BebasNeue Regular";
+}
+.lead {
+  font-size: 19px;
+}
+#wrapwrap footer {
+  font-size: 16px;
+}
+#wrapwrap footer h4 {
+  font-size: 22px;
+}
+.oe_product .oe_product_cart section h5 a {
+  font-size: 22px;
+}
+#products_grid_before .main-category {
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+#products_grid_before ul li a {
+  font-size: 17px;
+}
+.nav.navbar-nav.navbar-right {
+  font-family: "BebasNeue Regular";
+  font-size: 21px;
+  letter-spacing: 0.5px;
+  font-weight: 300;
+  font-style: normal;
+}

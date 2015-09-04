@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!-- Page -->
+    <data>
+
+        <template id="bpd_acquirer_button" name="Servicios Digitales Banco Popular">
+            <link rel="stylesheet" href="/payment_bpd/static/src/css/website_payment.css"/>
+
+            <div class="container-fluid">
+
+                <form class="form-horizontal oe_cc" role="form" t-if="acquirer" t-att-action="tx_url" method="post"
+                      target="_self">
+
+                    <t t-if="tx_values.get('return_url')">
+                        <input type='hidden' name='return_url' t-att-value='tx_values["return_url"]'/>
+                    </t>
+
+                    <input type='hidden' name='reference' t-att-value='reference'/>
+                    <input type='hidden' name='amount' t-att-value='amount or "0.0"'/>
+                    <input type='hidden' name='currency' t-att-value='currency.name'/>
+
+                    <h4>Datos de la tarjeta de crédito:</h4>
+                    <h6>4012 0000 7777 7777</h6>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="control-label" for="cc_holder_name">Titular de la tarjeta</label>
+                            <input type="text" id="cc_hoder_name" name="cc_hoder_name" class="form-control"/>
+                        </div>
+
+                        <div class="form-group input-group">
+                            <!--<label class="control-label" for="cc_number">Número de Tarjeta</label>-->
+                            <input type="tel" id="cc_number" name="cc_number" class="form-control"/>
+
+                            <span class="input-group-addon">
+                                <div class="card_placeholder"></div>
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="cc_expires_mm">Vencimiento</label>
+                            <input type="text" id="cc_expiry" name="cc_expiry" class="form-control" maxlength="7"
+                                   placeholder="MM/YY" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="cc_cvc">CVC</label>
+                            <input type="text" id="cc_cvc" name="cc_cvc" rel="tooltip" data-toggle="tooltip"
+                                   data-placement="right"
+                                   title="Estos son los tres últimos dígitos que se encuentran en la parte posterior de su tarjeta."
+                                   class="form-control" maxlength="4" palceholder="CVC"/>
+                        </div>
+                    </div>
+
+                    <button type="submit" width="100px" t-att-class="submit_class">
+                        <img t-if="not submit_txt" src="/payment_bpd/static/src/img/cards.jpg"/>
+                        <span t-if="submit_txt">
+                            <t t-esc="submit_txt"/>
+                            <span class="fa fa-long-arrow-right"/>
+                        </span>
+                    </button>
+                </form>
+            </div>
+
+            <script type="text/javascript" src="/payment_bpd/static/src/js/jquery.payment.js"></script>
+            <script type="text/javascript" src="/payment_bpd/static/src/js/payment_acquirer.js"></script>
+
+            <script type="text/javascript">
+                $('[rel=tooltip]').tooltip({container: 'body'});
+            </script>
+        </template>
+    </data>
+</openerp>

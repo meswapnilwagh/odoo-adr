@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--record id="action_account_asset_report_graph_update" model="ir.ui.view">
+            <field name="name">asset.asset.report.graph.update</field>
+            <field name="model">asset.asset.report</field>
+            <field name="inherit_id" ref="account_asset.action_account_asset_report_graph"/>
+            <field name="arch" type="xml">
+                <xpath expr="//graph[@string='Assets Analysis']" position="replace">
+                    <graph string="Assets Analysis" type="pivot">
+                        <field name="category_parent_id" type="row"/>
+                        <field name="asset_category_id" type="row"/>
+                        <field name="purchase_date" type="col"/>
+                        <field name="depreciation_value" type="measure"/>
+                        <field name="gross_value" type="measure"/>
+                        <field name="posted_value" type="measure"/>
+                        <field name="value_residual" type="measure"/>
+                    </graph>
+                </xpath>
+
+            </field>
+        </record-->
+
+
+
+        <record id="action_account_asset_report_graph_update" model="ir.ui.view">
+            <field name="name">asset.asset.report.graph.update</field>
+            <field name="model">asset.asset.report</field>
+            <field name="inherit_id" ref="account_asset.action_account_asset_report_graph"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//graph[@string='Assets Analysis']" position="replace">
+                    <graph string="Assets Analysis" type="pivot">
+                        <field name="category_parent_id" type="row"/>
+                        <field name="asset_category_id" type="row"/>
+                        <field name="purchase_date" type="col"/>
+                        <field name="depreciation_value" type="measure"/>
+                        <field name="gross_value" type="measure"/>
+                        <field name="posted_value" type="measure"/>
+                        <field name="value_residual" type="measure"/>
+                    </graph>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_asset_asset_report_search_update" model="ir.ui.view">
+            <field name="name">asset.asset.report.search.update</field>
+            <field name="model">asset.asset.report</field>
+            <field name="inherit_id" ref="account_asset.view_asset_asset_report_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@string='Asset']" position="before">
+                    <filter string="Asset Parent Category" name="parent_asset_category" context="{'group_by':'category_parent_id'}"/>
+                    <filter string="Analytic Account" name="analytic_account_id" context="{'group_by':'account_analytic_id'}"/>
+                    <filter string="Partner" name="partner_id" context="{'group_by':'partner_id'}"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="asset_code"/>
+                </xpath>
+
+
+            </field>
+        </record>
+    </data>
+</openerp>
+
+
+
